@@ -1,0 +1,26 @@
+def col(graph,colors):
+    vertices=len(graph)
+    assigned_col=[0]*vertices
+    print(assigned_col)
+    def backtrack(vertex):
+        if vertex==vertices:
+            return  True
+        for color in colors:
+            safe =True
+            for neigh in graph[vertex]:
+              if assigned_col[neigh]==color:
+                  safe=False
+                  break
+            if safe:
+                  assigned_col[vertex]=color
+                  if backtrack(vertex+1):
+                      return True
+                  assigned_col[vertex]=0
+        return False
+    if backtrack(0):
+      print("assigned col",assigned_col)
+    else:
+        print("graph can not be colored")
+graph=[[1, 2], [0, 2, 3], [0, 1, 3], [1, 2]]
+colors = ['red','green','pink']
+col(graph,colors)
